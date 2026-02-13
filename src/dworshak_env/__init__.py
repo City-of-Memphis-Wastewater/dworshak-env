@@ -5,11 +5,11 @@ __all__ = [
 
 def __getattr__(name):
     if name == "DworshakEnv":
-        from .dworshak_env import DworshakEnv
+        from .core import DworshakEnv
         return DworshakEnv
     
     if name == "dworshak_env":
-        from .dworshak_env import dworshak_env
+        from .core import dworshak_env
         return dworshak_env
     
 
