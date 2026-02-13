@@ -42,14 +42,12 @@ def main() -> int:
 
     # --- GET Command ---
     get_p = subparsers.add_parser("get", help="Retrieve a .env value", add_help=False)
-    get_p.add_argument("service", help="The service name")
     get_p.add_argument("item", help="The item key")
     get_p.add_argument("--path", type=Path, help="Custom config file path")
     get_p.add_argument("-h", "--help", action="help", help="Show this help")
 
     # --- SET Command ---
     set_p = subparsers.add_parser("set", help="Store an .env value", add_help=False)
-    set_p.add_argument("service", help="The service name")
     set_p.add_argument("item", help="The item key")
     set_p.add_argument("value", help="The value to store")
     set_p.add_argument("--path", type=Path, help="Custom .env file path")
@@ -77,19 +75,19 @@ def main() -> int:
         env_mgr = DworshakEnv(path=args.path)
 
         if args.command == "get":
-            value = env_mgr.get(args.service, args.item)
+            value = env_mgr.get(args.item)
             if value is not None:
                 # Direct match to Typer output
-                print(f"[{args.service}] {args.item} = {value}")
+                print(f"[{args.item}] = {value}")
                 return 0
             else:
-                stdlib_notify(f"Error: [{args.service}] {args.item} not found.")
+                stdlib_notify(f"Error: [{args.item}] not found.")
                 return 1
 
         elif args.command == "set":
-            env_mgr.set(args.service, args.item, args.value)
-            stdlib_notify(f"Stored [{args.service}] {args.item} successfully.")
-            print(f"[{args.service}] {args.item} = {args.value}")
+            env_mgr.set(args.item, args.value)
+            stdlib_notify(f"Stored [{args.item}] successfully.")
+            print(f"[{args.item}] = {args.value}")
             return 0
 
     except KeyboardInterrupt:
