@@ -1,7 +1,7 @@
 [project]
 name = "dworshak-env"
 version = "0.1.0"
-description = "Add your description here"
+description = "dworshak-env exists to make environment variables and .env files easy to access in Python programs and through the Dworshak ecosystem. With dworshak-env, Dworshak joins the herd of Python devs who already know how they like their configuration while inviting them to leverage the dworshak-prompt library and the dworshak CLI."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.9"
 dependencies = []
