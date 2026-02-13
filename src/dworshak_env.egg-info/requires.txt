@@ -1,0 +1,5 @@
+
+[typer]
+typer>=0.21.1
+rich>=14.3.2
+typer-helptree>=0.1.10

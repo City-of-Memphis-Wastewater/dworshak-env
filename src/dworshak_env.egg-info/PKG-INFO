@@ -1,0 +1,128 @@
+Metadata-Version: 2.4
+Name: dworshak-env
+Version: 0.1.0
+Summary: dworshak-env exists to make environment variables and .env files easy to access in Python programs and through the Dworshak ecosystem. With dworshak-env, Dworshak joins the herd of Python devs who already know how they like their configuration while inviting them to leverage the dworshak-prompt library and the dworshak CLI.
+Author-email: George Clayton Bennett <george.bennett@memphistn.gov>
+Maintainer-email: George Clayton Bennett <george.bennett@memphistn.gov>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/city-of-memphis-wastewater/dworshak-env
+Project-URL: Repository, https://github.com/city-of-memphis-wastewater/dworshak-env
+Keywords: environ,env,getenv,dotenv,.env
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Classifier: Development Status :: 3 - Alpha
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: typer
+Requires-Dist: typer>=0.21.1; extra == "typer"
+Requires-Dist: rich>=14.3.2; extra == "typer"
+Requires-Dist: typer-helptree>=0.1.10; extra == "typer"
+Dynamic: license-file
+
+
+# dworshak-env
+
+[GitHub: dworshak-env](https://github.com/your-org/dworshak-env)
+
+`dworshak-env` provides a small, convenient interface for working with environment variables and `.env` files. It is designed to fit into existing workflows without introducing surprises.
+
+This library does **not** replace `os.getenv`. Instead, it helps you manage environment variables in a predictable, Pythonic way and integrates naturally with the broader Dworshak ecosystem:
+
+* [dworshak-prompt](https://github.com/your-org/dworshak-prompt) — prompting and configuration
+* [dworshak-config](https://github.com/your-org/dworshak-config) — JSON-based configuration
+* [dworshak-secret](https://github.com/your-org/dworshak-secret) — secure secret storage
+
+Think of it as joining the herd: use modern `.env` patterns without creating a Dworshak-specific cult in `~/.dworshak/`.
+
+---
+
+## Installation
+
+```bash
+pip install dworshak-env
+```
+
+---
+
+## Usage
+
+### Simple access to environment variables
+
+```python
+from dworshak_env import DworshakEnv
+
+env = DworshakEnv()
+api_url = env.get("API_URL", default="https://api.github.com")
+print(api_url)
+```
+
+### Loading from a `.env` file
+
+```python
+env = DworshakEnv(dotenv_path=".env")
+db_password = env.get("DB_PASSWORD")
+```
+
+### Setting defaults
+
+You can instantiate `DworshakEnv` with defaults that act as fallbacks:
+
+```python
+defaults = {"API_URL": "https://api.github.com", "DEBUG": "0"}
+env = DworshakEnv(defaults=defaults)
+
+print(env.get("API_URL"))  # returns the default if not set in environment
+```
+
+### Integration with `dworshak-prompt` and `dworshak-obtain`
+
+`dworshak-env` can be used alongside `DworshakPrompt` and `DworshakObtain` to fetch values from the environment when prompting for config or secrets:
+
+```python
+from dworshak_prompt import DworshakPrompt
+
+prompt = DworshakPrompt()
+api_url = prompt.env("API_URL", default="https://api.github.com")
+```
+
+Or within `dworshak_obtain`:
+
+```python
+from dworshak_prompt import dworshak_obtain
+
+token = dworshak_obtain(service="github", item="api_token", store="env")
+```
+
+---
+
+## Philosophy
+
+`dworshak-env` exists to make environment variables and `.env` files easy to access in Python programs.
+
+It joins the mainstream patterns that Python developers already know, 
+while providing smooth prompting to users via DworshakPrompt - because developers are users too.
+
+Use it wherever you want predictable, Pythonic environment variable access, with optional integration into the Dworshak ecosystem.
+
+---
+
+## Links
+
+* [dworshak-env](https://github.com/your-org/dworshak-env)
+* [dworshak-prompt](https://github.com/your-org/dworshak-prompt)
+* [dworshak-config](https://github.com/your-org/dworshak-config)
+* [dworshak-secret](https://github.com/your-org/dworshak-secret)
+
+---
+

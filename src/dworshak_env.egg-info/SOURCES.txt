@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+src/dworshak_env/VERSION
+src/dworshak_env/_version.py
+src/dworshak_env.egg-info/PKG-INFO
+src/dworshak_env.egg-info/SOURCES.txt
+src/dworshak_env.egg-info/dependency_links.txt
+src/dworshak_env.egg-info/entry_points.txt
+src/dworshak_env.egg-info/requires.txt
+src/dworshak_env.egg-info/top_level.txt
