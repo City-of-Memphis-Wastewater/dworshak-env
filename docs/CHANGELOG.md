@@ -6,6 +6,14 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.2] – 2026-02-13
+### Added:
+- core.py
+- cli.py content migrated and altered from dworshak-config
+- cli_stdlib.py content migrated and altered from dworshak-config
+
+---
+
 ## [0.1.1] – 2026-02-13
 ### Added:
 - Publish to PyPI
