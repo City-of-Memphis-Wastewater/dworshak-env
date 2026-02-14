@@ -101,33 +101,28 @@ class DworshakEnv:
     def set(
         self, 
         key: str, 
-        value: Optional[str] = None, 
-        prompt_message: Optional[str] = None,
-        overwrite: bool = False
-    ) -> str | None:
+        value: str, 
+        overwrite: bool = True
+    ) -> str:
         """
         Updates the .env file with the provided value. 
-        If value is None, triggers dworshak_ask to prompt the user.
         """
+        if value is None:
+            return None
+        
         current_val = self.get(key)
         
-        if value is None:
-            if current_val is None or overwrite:
-                from dworshak_prompt import dworshak_ask
-                msg = prompt_message or f"Enter value for {key}"
-                value = dworshak_ask(message=msg, default=current_val)
-            else:
-                value = current_val
-
-        if value is not None:
+        # Only proceed if we are creating a new key OR overwriting an existing one
+        if current_val is None or overwrite:
             data = self._load_dotenv()
             data[key] = str(value)
             self._save_dotenv(data)
             # Synchronize current process environment
             os.environ[key] = str(value)
+            return str(value)
             
-        return value
-
+        return str(current_val)
+    
 def dworshak_env(key: str, default: Any = None, **kwargs) -> Any:
     """
     Functional wrapper for DworshakEnv.get.

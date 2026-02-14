@@ -65,27 +65,28 @@ def get(
         typer.echo(value)
     else:
         # Errors go to stderr so they don't get captured in variables
-        console.print(f"Error: key '{key}' not found", err=True)
+        typer.echo(f"Error: key '{key}' not found", err=True)
         raise typer.Exit(code=1)
 
 @app.command()
 def set(
     key: str = typer.Argument(..., help="The key key (e.g., port)."),
     value: str = typer.Option(None, "--value", help="Directly set a value."),
-    message: str = typer.Option(None, "--message", help="Custom prompt message."),
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
     overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
 ):
     """
     Store or update a .env configuration value (single-key).
     """
+    if value is None:
+        typer.echo(f"Provided: None. No value saved.", err=True)
+        return
     env_mgr = DworshakEnv(path=path)
     existing_value = env_mgr.get(key=key)
 
     # If it exists and we aren't overwriting, print value and exit
     if existing_value is not None and not overwrite:
         # We still send 'Existing:' to stderr for context, but raw value to stdout
-        console.print(f"Existing value found for [{key}]", style="yellow", err=True)
         typer.echo(existing_value)
         return
 
@@ -93,18 +94,18 @@ def set(
     final_value = env_mgr.set(
         key=key,
         value=value,
-        prompt_message=message,
         overwrite=overwrite
     )
 
     if final_value is not None:
         # Status message goes to stderr
-        console.print(f"Stored [{key}] successfully.", style="green", err=True)
+        typer.echo(f"Stored [{key}] successfully.", err=True)
         # ONLY the value goes to stdout
         typer.echo(final_value)
     else:
         # Error context to stderr
-        console.print(f"Error: Failed to set value for [{key}]", style="red", err=True)
+        typer.echo(f"Error: Failed to set value for [{key}]", err=True)
+        
         raise typer.Exit(code=1)
 
 if __name__ == "__main__":
