@@ -65,7 +65,7 @@ class DworshakEnv:
             delete=False, 
             encoding="utf-8"
         ) as tf:
-            for k, v in env_dict.keys():
+            for k, v in env_dict.values():
                 tf.write(f"{k}={v}\n")
             temp_path = Path(tf.name)
 
