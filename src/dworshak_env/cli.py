@@ -50,7 +50,7 @@ except:
     pass
 @app.command()
 def get(
-    item: str = typer.Argument(..., help="The item key (e.g., port)."),
+    key: str = typer.Argument(..., help="The key key (e.g., port)."),
     value: str = typer.Option(None, "--value", help="Identify a value."),
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
 ):
@@ -60,15 +60,15 @@ def get(
     env_mgr = DworshakEnv(path=path)
     
     value = env_mgr.get(
-        item=item,
+        key=key,
     )
     if value:
         # Only print the value to stdout for piping/capture
-        typer.echo(f"[{item}] = {value}")
+        typer.echo(f"[{key}] = {value}")
 
 @app.command()
 def set(
-    item: str = typer.Argument(..., help="The item key (e.g., port)."),
+    key: str = typer.Argument(..., help="The key key (e.g., port)."),
     value: str = typer.Option(None, "--value", help="Directly set a value."),
     message: str = typer.Option(None, "--message", help="Custom prompt message."),
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
@@ -80,16 +80,16 @@ def set(
     env_mgr = DworshakEnv(path=path)
     
     exisiting_value = env_mgr.get(
-        item=item,
+        key=key,
     )
     if exisiting_value is not None :
-        env_mgr.get_value(item, value)
+        env_mgr.get_value(key, value)
         display_existing_val = value
-        typer.echo(f"Existing: [{item}] = {display_existing_val}")
+        typer.echo(f"Existing: [{key}] = {display_existing_val}")
 
     if (exisiting_value is None) or (exisiting_value is not None and overwrite):
         value = env_mgr.set(
-            item=item,
+            key=key,
             prompt_message=message,
             overwrite=overwrite
         )
@@ -98,7 +98,7 @@ def set(
     
     if value:
         # Only print the value to stdout for piping/capture
-        typer.echo(f"[{item}] = {value}")
+        typer.echo(f"[{key}] = {value}")
 
 if __name__ == "__main__":
     app()

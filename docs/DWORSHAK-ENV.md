@@ -79,7 +79,7 @@ Feature	dworshak-env	dworshak-config
 Storage	Environment variables, .env files	JSON files in ~/.dworshak/
 Persistence	Ephemeral, optional overrides	Persistent, structured config
 Prompting missing values	Optional with DworshakPrompt	Optional with DworshakPrompt
-Hierarchy	Flat key/value	Nested by service/item
+Hierarchy	Flat key/value	Nested by service/key
 Use case	Lightweight, on-ramp, ephemeral	Robust, structured, production-ready
 
 

@@ -65,7 +65,7 @@ class DworshakEnv:
             delete=False, 
             encoding="utf-8"
         ) as tf:
-            for k, v in env_dict.items():
+            for k, v in env_dict.keys():
                 tf.write(f"{k}={v}\n")
             temp_path = Path(tf.name)
 
@@ -77,7 +77,7 @@ class DworshakEnv:
             if temp_path.exists():
                 temp_path.unlink()
 
-    def get(self, item: str, default: Any = None) -> Any:
+    def get(self, key: str, default: Any = None) -> Any:
         """
         Retrieves a value based on priority: 
         1. os.environ
@@ -85,22 +85,22 @@ class DworshakEnv:
         3. Local defaults dictionary
         4. Method 'default' argument
         """
-        val = os.getenv(item)
+        val = os.getenv(key)
         if val is not None:
             return val
         
         file_values = self._load_dotenv()
-        if item in file_values:
-            return file_values[item]
+        if key in file_values:
+            return file_values[key]
         
-        if item in self.defaults:
-            return self.defaults[item]
+        if key in self.defaults:
+            return self.defaults[key]
             
         return default
 
     def set(
         self, 
-        item: str, 
+        key: str, 
         value: Optional[str] = None, 
         prompt_message: Optional[str] = None,
         overwrite: bool = False
@@ -109,28 +109,28 @@ class DworshakEnv:
         Updates the .env file with the provided value. 
         If value is None, triggers dworshak_ask to prompt the user.
         """
-        current_val = self.get(item)
+        current_val = self.get(key)
         
         if value is None:
             if current_val is None or overwrite:
                 from dworshak_prompt import dworshak_ask
-                msg = prompt_message or f"Enter value for {item}"
+                msg = prompt_message or f"Enter value for {key}"
                 value = dworshak_ask(message=msg, default=current_val)
             else:
                 value = current_val
 
         if value is not None:
             data = self._load_dotenv()
-            data[item] = str(value)
+            data[key] = str(value)
             self._save_dotenv(data)
             # Synchronize current process environment
-            os.environ[item] = str(value)
+            os.environ[key] = str(value)
             
         return value
 
-def dworshak_env(item: str, default: Any = None, **kwargs) -> Any:
+def dworshak_env(key: str, default: Any = None, **kwargs) -> Any:
     """
     Functional wrapper for DworshakEnv.get.
     Usage: val = dworshak_env("API_KEY", path="/path/to/.env")
     """
-    return DworshakEnv(**kwargs).get(item, default=default)
+    return DworshakEnv(**kwargs).get(key, default=default)

@@ -11,7 +11,7 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 - Reference core.py and not dworhak_env.py to import DworshakEnv. Fixed in cli.py, cli_stdlib.py, and README.md.
 
 ### Internal:
-- We need to release and then update dwroshak and dworshak-prompt to fix downstream. References to "item" key are correct.
+- We need to release and then update dwroshak and dworshak-prompt to fix downstream. References to "key" key are correct.
 
 ---
 

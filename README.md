@@ -69,7 +69,7 @@ Or within `dworshak_obtain`:
 ```python
 from dworshak_prompt import dworshak_obtain
 
-token = dworshak_obtain(service="github", item="api_token", store="env")
+token = dworshak_obtain(service="github", key="api_token", store="env")
 ```
 
 ---
