@@ -55,16 +55,18 @@ def get(
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
 ):
     """
-    Get or set a .env configuration value (single-key).
+    Get a .env configuration value (single-key).
     """
     env_mgr = DworshakEnv(path=path)
+    value = env_mgr.get(key=key)
     
-    value = env_mgr.get(
-        key=key,
-    )
-    if value:
-        # Only print the value to stdout for piping/capture
-        typer.echo(f"[{key}] = {value}")
+    if value is not None:
+        # Just the value. No brackets, no labels.
+        typer.echo(value)
+    else:
+        # Errors go to stderr so they don't get captured in variables
+        console.print(f"Error: key '{key}' not found", err=True)
+        raise typer.Exit(code=1)
 
 @app.command()
 def set(
@@ -75,28 +77,35 @@ def set(
     overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
 ):
     """
-    Get or set a .env configuration value (single-key).
+    Store or update a .env configuration value (single-key).
     """
     env_mgr = DworshakEnv(path=path)
-    
-    existing_value = env_mgr.get(
-        key=key,
-    )
-    if existing_value is not None :
-        typer.echo(f"Existing: [{key}] = {existing_value}")
+    existing_value = env_mgr.get(key=key)
 
-    if (existing_value is None) or (existing_value is not None and overwrite):
-        value = env_mgr.set(
-            key=key,
-            prompt_message=message,
-            overwrite=overwrite
-        )
+    # If it exists and we aren't overwriting, print value and exit
+    if existing_value is not None and not overwrite:
+        # We still send 'Existing:' to stderr for context, but raw value to stdout
+        console.print(f"Existing value found for [{key}]", style="yellow", err=True)
+        typer.echo(existing_value)
+        return
+
+    # Trigger the prompt or the direct set
+    final_value = env_mgr.set(
+        key=key,
+        value=value,
+        prompt_message=message,
+        overwrite=overwrite
+    )
+
+    if final_value is not None:
+        # Status message goes to stderr
+        console.print(f"Stored [{key}] successfully.", style="green", err=True)
+        # ONLY the value goes to stdout
+        typer.echo(final_value)
     else:
-        value =  existing_value
-    
-    if value:
-        # Only print the value to stdout for piping/capture
-        typer.echo(f"[{key}] = {value}")
+        # Error context to stderr
+        console.print(f"Error: Failed to set value for [{key}]", style="red", err=True)
+        raise typer.Exit(code=1)
 
 if __name__ == "__main__":
     app()
