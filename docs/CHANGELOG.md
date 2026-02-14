@@ -6,6 +6,15 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.3] – 2026-02-14
+### Fixed:
+- Reference core.py and not dworhak_env.py to import DworshakEnv. Fixed in cli.py, cli_stdlib.py, and README.md.
+
+### Internal:
+- We need to release and then update dwroshak and dworshak-prompt to fix downstream. References to "item" key are correct.
+
+---
+
 ## [0.1.2] – 2026-02-13
 ### Added:
 - core.py
