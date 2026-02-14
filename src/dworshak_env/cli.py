@@ -79,22 +79,20 @@ def set(
     """
     env_mgr = DworshakEnv(path=path)
     
-    exisiting_value = env_mgr.get(
+    existing_value = env_mgr.get(
         key=key,
     )
-    if exisiting_value is not None :
-        env_mgr.get_value(key, value)
-        display_existing_val = value
-        typer.echo(f"Existing: [{key}] = {display_existing_val}")
+    if existing_value is not None :
+        typer.echo(f"Existing: [{key}] = {existing_value}")
 
-    if (exisiting_value is None) or (exisiting_value is not None and overwrite):
+    if (existing_value is None) or (existing_value is not None and overwrite):
         value = env_mgr.set(
             key=key,
             prompt_message=message,
             overwrite=overwrite
         )
     else:
-        value =  exisiting_value
+        value =  existing_value
     
     if value:
         # Only print the value to stdout for piping/capture
