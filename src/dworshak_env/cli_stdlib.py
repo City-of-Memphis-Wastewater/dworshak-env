@@ -4,7 +4,7 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
-from .dworshak_env import DworshakEnv
+from .core import DworshakEnv
 from ._version import __version__
 
 def stdlib_notify(msg: str):

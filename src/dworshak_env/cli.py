@@ -9,7 +9,7 @@ try:
     from typer_helptree import add_typer_helptree
 except:
     pass
-from .dworshak_env import DworshakEnv
+from .core import DworshakEnv
 from ._version import __version__
 
 
