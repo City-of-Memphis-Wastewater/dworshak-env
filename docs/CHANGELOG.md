@@ -6,6 +6,12 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.4] – 2026-02-14
+### Changed:
+- 'key' keyword used in dworshak-env 0.1.4, rather than 'item' 
+
+---
+
 ## [0.1.3] – 2026-02-14
 ### Fixed:
 - Reference core.py and not dworhak_env.py to import DworshakEnv. Fixed in cli.py, cli_stdlib.py, and README.md.
