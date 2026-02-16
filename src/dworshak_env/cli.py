@@ -4,7 +4,6 @@ Docstring for dworshak_env.cli
 CLI policy:
 - Positionals on required arguments. 
 - Flags on optional tweaks. 
-- Prompt if safe for missing positionals.
 
 """
 import typer
