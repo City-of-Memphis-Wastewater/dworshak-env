@@ -76,10 +76,7 @@ def get(
 @app.command()
 def set(
     key: str = typer.Argument(..., help="The key (e.g. PORT, API_KEY)."),
-    value: Optional[str] = typer.Argument(
-        default=None,
-        help="The value to store. If omitted → prompt (interactive) or error (CI/non-tty)",
-    ),
+    value: str = typer.Argument(...,help="The value to store."),
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
     overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
 ):
