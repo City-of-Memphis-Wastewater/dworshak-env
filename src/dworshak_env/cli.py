@@ -1,4 +1,12 @@
 # src/dworshak_env/cli.py
+"""
+Docstring for dworshak_env.cli
+CLI policy:
+- Positionals on required arguments. 
+- Flags on optional tweaks. 
+- Prompt if safe for missing positionals.
+
+"""
 import typer
 from typer.models import OptionInfo
 from rich.console import Console
@@ -50,9 +58,8 @@ except:
     pass
 @app.command()
 def get(
-    key: str = typer.Argument(..., help="The key key (e.g., port)."),
-    value: str = typer.Option(None, "--value", help="Identify a value."),
-    path: Path = typer.Option(None, "--path", help="Custom config file path."),
+    key: str = typer.Argument(..., help="The key key (e.g., PORT, API_KEY)."),
+    path: Path = typer.Option(None, "--path", help="Custom .env file path."),
 ):
     """
     Get a .env configuration value (single-key).
@@ -61,8 +68,7 @@ def get(
     value = env_mgr.get(key=key)
     
     if value is not None:
-        # Just the value. No brackets, no labels.
-        typer.echo(value)
+        typer.echo(value) # raw value → stdout for capture
     else:
         # Errors go to stderr so they don't get captured in variables
         typer.echo(f"Error: key '{key}' not found", err=True)
@@ -70,8 +76,11 @@ def get(
 
 @app.command()
 def set(
-    key: str = typer.Argument(..., help="The key key (e.g., port)."),
-    value: str = typer.Option(None, "--value", help="Directly set a value."),
+    key: str = typer.Argument(..., help="The key (e.g. PORT, API_KEY)."),
+    value: Optional[str] = typer.Argument(
+        default=None,
+        help="The value to store. If omitted → prompt (interactive) or error (CI/non-tty)",
+    ),
     path: Path = typer.Option(None, "--path", help="Custom config file path."),
     overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
 ):
