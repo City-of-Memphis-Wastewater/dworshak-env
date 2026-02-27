@@ -58,7 +58,7 @@ except:
 @app.command()
 def get(
     key: str = typer.Argument(..., help="The key key (e.g., PORT, API_KEY)."),
-    path: Path = typer.Option(None, "--path", help="Custom .env file path."),
+    path: Path = typer.Option(None, "--path","-p", help="Custom .env file path."),
 ):
     """
     Get a .env configuration value (single-key).
@@ -77,7 +77,7 @@ def get(
 def set(
     key: str = typer.Argument(..., help="The key (e.g. PORT, API_KEY)."),
     value: str = typer.Argument(...,help="The value to store."),
-    path: Path = typer.Option(None, "--path", help="Custom config file path."),
+    path: Path = typer.Option(None, "--path","-p", help="Custom config file path."),
     overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
 ):
     """

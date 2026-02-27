@@ -42,14 +42,14 @@ def main() -> int:
     # --- GET Command ---
     get_p = subparsers.add_parser("get", help="Retrieve a .env value", add_help=False)
     get_p.add_argument("key", help="The environment variable key")
-    get_p.add_argument("--path", type=Path, help="Custom config file path")
+    get_p.add_argument("--path","-p", type=Path, help="Custom config file path")
     get_p.add_argument("-h", "--help", action="help", help="Show this help")
 
     # --- SET Command ---
     set_p = subparsers.add_parser("set", help="Store an .env value", add_help=False)
     set_p.add_argument("key", help="The environment variable key")
     set_p.add_argument("value", help="The value to store")
-    set_p.add_argument("--path", type=Path, help="Custom .env file path")
+    set_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
     set_p.add_argument("--overwrite", action="store_true", help="Force overwrite existing value")
     set_p.add_argument("-h", "--help", action="help", help="Show this help")
 
