@@ -7,8 +7,9 @@ CLI policy:
 
 """
 import typer
-from typer.models import OptionInfo
+#from typer.models import OptionInfo
 from rich.console import Console
+from rich.table import Table
 import os
 from pathlib import Path
 from typing import Optional
@@ -57,8 +58,10 @@ except:
     pass
 @app.command()
 def get(
-    key: str = typer.Argument(..., help="The key key (e.g., PORT, API_KEY)."),
+    key: str = typer.Argument(..., help="The value key (e.g., PORT, API_KEY)."),
     path: Path = typer.Option(None, "--path","-p", help="Custom .env file path."),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """
     Get a .env configuration value (single-key).
@@ -78,7 +81,9 @@ def set(
     key: str = typer.Argument(..., help="The key (e.g. PORT, API_KEY)."),
     value: str = typer.Argument(...,help="The value to store."),
     path: Path = typer.Option(None, "--path","-p", help="Custom config file path."),
-    overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt.")
+    overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt."),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """
     Store or update a .env configuration value (single-key).
@@ -112,6 +117,65 @@ def set(
         typer.echo(f"Error: Failed to set value for [{key}]", err=True)
         
         raise typer.Exit(code=1)
+
+@app.command()
+def remove(
+    key: str = typer.Argument(..., help="Value key."),
+    path: Optional[Path] = typer.Option(None, "--path", "-p", help="Custom .env file path."),
+    fail: bool = typer.Option(False, "--fail", help="Raise error if config not found"),
+    yes: bool = typer.Option(
+        False,
+        "--yes","-y",
+        is_flag=True,
+        help="Skip confirmation prompt (useful in scripts or automation)"
+    ),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
+):
+    """Remove a setting from the .env value."""
+
+    env_mgr = DworshakEnv(path=path)
+
+    if not yes:
+        yes = typer.confirm(
+            f"Are you sure you want to remove value for key: {key}?",
+            default=False,  # ← [y/N] style — safe default
+        )
+    if not yes:
+        console.print("[yellow]Operation cancelled.[/yellow]")
+        raise typer.Exit(code=0)
+
+    deleted = env_mgr.remove(key)
+    if deleted:
+        console.print(f"[green]Removed value for key: {key}[/green]")
+    else:
+        if fail:
+            raise KeyError(f"No value found for key: {key}")
+        console.print(f"[yellow]No value found for key: {key}[/yellow]")
+
+
+@app.command(name = "list")
+def list_entries(
+    path: Optional[Path] = typer.Option(None, "--path", "-p", help="Custom .env file path."),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
+):
+    """List all stored settings."""
+    env_mgr = DworshakEnv(path=path)
+    #keys = env_mgr.list_entries()
+
+    # Use the internal _load to get the full dict for efficiency
+    data = env_mgr._load()
+
+    table = Table(title=f"Stored Env Vars ({env_mgr.path})")
+    table.add_column("Key", style="cyan")
+    table.add_column("Value", style="green") # Changed to green for visual distinction
+    
+    # Sort keys for a predictable CLI output
+    for key in sorted(data.keys()):
+        table.add_row(key, data[key])
+        
+    console.print(table)
 
 if __name__ == "__main__":
     app()

@@ -4,7 +4,7 @@ import os
 import tempfile
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, List
 
 logger = logging.getLogger("dworshak_env")
 
@@ -24,7 +24,7 @@ class DworshakEnv:
         self.path = Path(path) if path else Path(".env")
         self.defaults = defaults or {}
 
-    def _load_dotenv(self) -> Dict[str, str]:
+    def _load(self) -> Dict[str, str]:
         """
         Parses the .env file into a dictionary.
         Supports basic KEY=VALUE pairs, skipping comments and empty lines.
@@ -50,7 +50,7 @@ class DworshakEnv:
             
         return env_dict
 
-    def _save_dotenv(self, env_dict: Dict[str, str]):
+    def _save(self, env_dict: Dict[str, str]):
         """
         Writes the dictionary to the .env file using an atomic write pattern.
         This prevents file corruption during power loss or application crashes.
@@ -89,7 +89,7 @@ class DworshakEnv:
         if val is not None:
             return val
         
-        file_values = self._load_dotenv()
+        file_values = self._load()
         if key in file_values:
             return file_values[key]
         
@@ -114,14 +114,38 @@ class DworshakEnv:
         
         # Only proceed if we are creating a new key OR overwriting an existing one
         if current_val is None or overwrite:
-            data = self._load_dotenv()
+            data = self._load()
             data[key] = str(value)
-            self._save_dotenv(data)
+            self._save(data)
             # Synchronize current process environment
             os.environ[key] = str(value)
             return str(value)
             
         return str(current_val)
+
+    def remove(self, key: str) -> bool:
+        """
+        Removes a key from the .env file and the current process environment.
+        Returns True if the key was found and removed.
+        """
+        data = self._load()
+        if key not in data:
+            return False
+            
+        del data[key]
+        self._save(data)
+        
+        if key in os.environ:
+            del os.environ[key]
+            
+        return True
+
+    def list_entries(self) -> List[str]:
+        """
+        Returns a sorted list of all keys currently stored in the .env file.
+        """
+        data = self._load()
+        return sorted(list(data.keys()))
     
 def dworshak_env(key: str, default: Any = None, **kwargs) -> Any:
     """
