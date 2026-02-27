@@ -24,7 +24,7 @@ class DworshakEnv:
         self.path = Path(path) if path else Path(".env")
         self.defaults = defaults or {}
 
-    def _load(self) -> Dict[str, str]:
+    def load(self) -> Dict[str, str]:
         """
         Parses the .env file into a dictionary.
         Supports basic KEY=VALUE pairs, skipping comments and empty lines.
@@ -89,7 +89,7 @@ class DworshakEnv:
         if val is not None:
             return val
         
-        file_values = self._load()
+        file_values = self.load()
         if key in file_values:
             return file_values[key]
         
@@ -114,7 +114,7 @@ class DworshakEnv:
         
         # Only proceed if we are creating a new key OR overwriting an existing one
         if current_val is None or overwrite:
-            data = self._load()
+            data = self.load()
             data[key] = str(value)
             self._save(data)
             # Synchronize current process environment
@@ -128,7 +128,7 @@ class DworshakEnv:
         Removes a key from the .env file and the current process environment.
         Returns True if the key was found and removed.
         """
-        data = self._load()
+        data = self.load()
         if key not in data:
             return False
             
@@ -144,7 +144,7 @@ class DworshakEnv:
         """
         Returns a sorted list of all keys currently stored in the .env file.
         """
-        data = self._load()
+        data = self.load()
         return sorted(list(data.keys()))
     
 def dworshak_env(key: str, default: Any = None, **kwargs) -> Any:

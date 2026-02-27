@@ -164,8 +164,8 @@ def list_entries(
     env_mgr = DworshakEnv(path=path)
     #keys = env_mgr.list_entries()
 
-    # Use the internal _load to get the full dict for efficiency
-    data = env_mgr._load()
+    # Use the load() to get the full dict for efficiency
+    data = env_mgr.load()
 
     table = Table(title=f"Stored Env Vars ({env_mgr.path})")
     table.add_column("Key", style="cyan")
