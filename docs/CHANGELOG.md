@@ -6,6 +6,13 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.5] – 2026-02-27
+### Added:
+- list and remove commands added to the cli.py file.
+- Adjust the core.py logic to enable the list and remove commands.
+
+---
+
 ## [0.1.4] – 2026-02-14
 ### Changed:
 - 'key' keyword used in dworshak-env 0.1.4, rather than 'item' 
