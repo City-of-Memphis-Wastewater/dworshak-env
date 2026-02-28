@@ -10,7 +10,7 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 ### Added:
 - list and remove commands added to the cli.py file.
 - Adjust the core.py logic to enable the list and remove commands.
-
+ 
 ---
 
 ## [0.1.4] – 2026-02-14
