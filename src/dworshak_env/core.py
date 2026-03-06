@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, List
 
-logger = logging.getLogger("dworshak_env")
+logger = logging.getLogger(__name__)
 
 class DworshakEnv:
     def __init__(
