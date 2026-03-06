@@ -1,14 +1,14 @@
-# src/dworshak_prompt/logging_setup.py
+# src/dworshak_env/logging_setup.py
 import logging
 import sys
 import traceback
 
 def setup_logging(verbose: bool = False, debug: bool = False, initial: bool=False):
     """
-    Configure the root 'dworshak_prompt' logger.
+    Configure the root 'dworshak_*' logger.
     Priority: debug > verbose > default (WARNING)
     """
-    logger = logging.getLogger("dworshak_prompt")
+    logger = logging.getLogger("dworshak_env")
 
     # Clear any existing handlers to prevent duplicates
     logger.handlers.clear()
