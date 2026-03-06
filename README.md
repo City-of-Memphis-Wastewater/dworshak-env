@@ -1,17 +1,13 @@
 
 # dworshak-env
 
-[GitHub: dworshak-env](https://github.com/your-org/dworshak-env)
+[GitHub: dworshak-env](https://github.com/City-of-Memphis-Wastewater/dworshak-env)
 
 `dworshak-env` provides a small, convenient interface for working with environment variables and `.env` files. It is designed to fit into existing workflows without introducing surprises.
 
 This library does **not** replace `os.getenv`. Instead, it helps you manage environment variables in a predictable, Pythonic way and integrates naturally with the broader Dworshak ecosystem:
 
-* [dworshak-prompt](https://github.com/your-org/dworshak-prompt) — prompting and configuration
-* [dworshak-config](https://github.com/your-org/dworshak-config) — JSON-based configuration
-* [dworshak-secret](https://github.com/your-org/dworshak-secret) — secure secret storage
-
-Think of it as joining the herd: use modern `.env` patterns without creating a Dworshak-specific cult in `~/.dworshak/`.
+Dworshak joins the herd: Devs can use modern `.env` patterns without needing to leverage the `~/.dworshak/` standard folder. 
 
 ---
 
