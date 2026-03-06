@@ -90,19 +90,16 @@ def set(
     """
     if value is None:
         typer.echo(f"Provided: None. No value saved.", err=True)
-        return
+        raise typer.Exit(code=1)
     env_mgr = DworshakEnv(path=path)
     existing_value = env_mgr.get(key=key)
 
     # If it exists and we aren't overwriting, print value and exit
     if existing_value is not None and not overwrite:
+        typer.echo(f"Key [{key}] already exists. Use --overwrite.", err=True)
         # Send raw value to stdout
-        if verbose or debug:
-            typer.echo(
-                f"Key [{key}] already exists. Use --overwrite to change it.",err=True
-            )
         typer.echo(existing_value)
-        return
+        raise typer.Exit(code=1)
 
     # Trigger the prompt or the direct set
     final_value = env_mgr.set(

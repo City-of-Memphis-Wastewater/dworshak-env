@@ -6,10 +6,13 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
-## [0.1.5] – 2026-02-27
+## [0.1.6] – 2026-03-6
 ### Changed:
 - Remove logging_setup.py in favor of `logger = logging.getLogger(__name__)` in core.py
 - Stabilize stderr vs stdout separation.
+
+### Fixed:
+- Use `raise typer.Exit(code=1)` instead of `return` in cli.py.
 
 ---
 
