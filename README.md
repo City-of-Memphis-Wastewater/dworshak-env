@@ -38,7 +38,7 @@ print(api_url)
 ### Loading from a `.env` file
 
 ```python
-env = DworshakEnv(dotenv_path=".env")
+env = DworshakEnv(path=".env")
 db_password = env.get("DB_PASSWORD")
 ```
 
@@ -51,25 +51,6 @@ defaults = {"API_URL": "https://api.github.com", "DEBUG": "0"}
 env = DworshakEnv(defaults=defaults)
 
 print(env.get("API_URL"))  # returns the default if not set in environment
-```
-
-### Integration with `dworshak-prompt` and `dworshak-obtain`
-
-`dworshak-env` can be used alongside `DworshakPrompt` and `DworshakObtain` to fetch values from the environment when prompting for config or secrets:
-
-```python
-from dworshak_prompt import DworshakPrompt
-
-prompt = DworshakPrompt()
-api_url = prompt.env("API_URL", default="https://api.github.com")
-```
-
-Or within `dworshak_obtain`:
-
-```python
-from dworshak_prompt import dworshak_obtain
-
-token = dworshak_obtain(service="github", key="api_token", store="env")
 ```
 
 ---
@@ -85,12 +66,47 @@ Use it wherever you want predictable, Pythonic environment variable access, with
 
 ---
 
-## Links
+## Sister Projects in the Dworshak Ecosystem
 
-* [dworshak-env](https://github.com/your-org/dworshak-env)
-* [dworshak-prompt](https://github.com/your-org/dworshak-prompt)
-* [dworshak-config](https://github.com/your-org/dworshak-config)
-* [dworshak-secret](https://github.com/your-org/dworshak-secret)
+* **CLI/Orchestrator:** [dworshak](https://github.com/City-of-Memphis-Wastewater/dworshak)
+* **Interactive UI:** [dworshak-prompt](https://github.com/City-of-Memphis-Wastewater/dworshak-prompt)
+* **Secrets Storage:** [dworshak-secret](https://github.com/City-of-Memphis-Wastewater/dworshak-secret)
+* **Plaintext Pathed Configs:** [dworshak-config](https://github.com/City-of-Memphis-Wastewater/dworshak-config)
+* **Classic .env Injection:** [dworshak-env](https://github.com/City-of-Memphis-Wastewater/dworshak-env)
+
+```bash
+pipx install dworshak
+pip install dworshak-secret
+pip install dworshak-config
+pip install dworshak-env
+pip install dworshak-prompt
+
+```
 
 ---
 
+## CLI
+
+The [dworshak](https://github.com/City-of-Memphis-Wastewater/dworshak) layer is the intended primary CLI entry point, but the `dworshak-env` CLI can be used directly.
+
+```bash
+pipx install "dworshak-env[typer]"
+dworshak-env --version
+dworshak-env --help
+dworshak-env set "key" 0
+```
+
+```
+dworshak-env helptree
+```
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/City-of-Memphis-Wastewater/dworshak-prompt/main/assets/dworshak-prompt_v0.2.24_helptree.svg" width="100%" alt="Screenshot of the Dworshak CLI helptree">
+</p>
+
+`helptree` is utility funtion for Typer CLIs, imported from the `typer-helptree` library.
+
+- GitHub: https://github.com/City-of-Memphis-Wastewater/typer-helptree
+- PyPI: https://pypi.org/project/typer-helptree/
+
+---
