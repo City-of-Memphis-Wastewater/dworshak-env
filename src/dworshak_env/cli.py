@@ -81,7 +81,7 @@ def set(
     key: str = typer.Argument(..., help="The key (e.g. PORT, API_KEY)."),
     value: str = typer.Argument(...,help="The value to store."),
     path: Path = typer.Option(None, "--path","-p", help="Custom config file path."),
-    overwrite: bool = typer.Option(False, "--overwrite", help="Force a new prompt."),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing value."),
     debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
@@ -98,8 +98,8 @@ def set(
     if existing_value is not None and not overwrite:
         # Send raw value to stdout
         if verbose or debug:
-            stdlib_notify(
-                f"Key [{key}] already exists. Use --overwrite to change it."
+            typer.echo(
+                f"Key [{key}] already exists. Use --overwrite to change it.",err=True
             )
         typer.echo(existing_value)
         return
