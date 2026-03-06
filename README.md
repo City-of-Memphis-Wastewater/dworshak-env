@@ -7,8 +7,6 @@
 
 This library does **not** replace `os.getenv`. Instead, it helps you manage environment variables in a predictable, Pythonic way and integrates naturally with the broader Dworshak ecosystem:
 
-Dworshak joins the herd: Devs can use modern `.env` patterns without needing to leverage the `~/.dworshak/` standard folder. 
-
 ---
 
 ## Installation
