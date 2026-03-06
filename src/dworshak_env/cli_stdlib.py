@@ -81,29 +81,6 @@ def main() -> int:
                 stdlib_notify(f"Error: key '{args.key}' not found.")
                 return 1
 
-        elif args.command == "set_":
-            if args.value is None:
-                stdlib_notify("Error: No value provided for set command.")
-                return 1
-
-            existing_value = env_mgr.get(args.key)
-            
-            # Match Typer CLI: if exists and no overwrite, just print existing and exit
-            if existing_value is not None and not args.overwrite:
-                print(existing_value)
-                return 0
-
-            final_value = env_mgr.set(args.key, args.value, overwrite=args.overwrite)
-            
-            if final_value is not None:
-                stdlib_notify(f"Stored [{args.key}] successfully.")
-                print(final_value) # Raw stdout
-                return 0
-            else:
-                stdlib_notify(f"Error: Failed to set value for [{args.key}]")
-                return 1
-            
-
         elif args.command == "set":
             existing_value = env_mgr.get(args.key)
             
