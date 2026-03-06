@@ -96,7 +96,11 @@ def set(
 
     # If it exists and we aren't overwriting, print value and exit
     if existing_value is not None and not overwrite:
-        # We still send 'Existing:' to stderr for context, but raw value to stdout
+        # Send raw value to stdout
+        if verbose or debug:
+            stdlib_notify(
+                f"Key [{key}] already exists. Use --overwrite to change it."
+            )
         typer.echo(existing_value)
         return
 
