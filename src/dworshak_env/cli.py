@@ -20,8 +20,8 @@ except:
 from .core import DworshakEnv
 from ._version import __version__
 
+console = Console(stderr=True)
 
-console = Console() # to be above the tkinter check, in case of console.print
 app = typer.Typer()
 
 # Force Rich to always enable colors, even when running from a .pyz bundle
@@ -49,7 +49,7 @@ def main(ctx: typer.Context,
     Enable --version
     """
     if version:
-        typer.echo(__version__)
+        typer.echo(__version__, err=False)
         raise typer.Exit(code=0)
 
 try:
