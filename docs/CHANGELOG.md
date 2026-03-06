@@ -7,6 +7,12 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 ---
 
 ## [0.1.5] – 2026-02-27
+### Changed:
+- Remove logging_setup.py in favor of `logger = logging.getLogger(__name__)` in core.py
+
+---
+
+## [0.1.5] – 2026-02-27
 ### Added:
 - list and remove commands added to the cli.py file.
 - Adjust the core.py logic to enable the list and remove commands.
