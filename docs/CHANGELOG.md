@@ -13,6 +13,7 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ### Fixed:
 - Use `raise typer.Exit(code=1)` instead of `return` in cli.py.
+- Maintain README.md.
 
 ---
 
