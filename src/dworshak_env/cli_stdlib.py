@@ -26,7 +26,7 @@ def stdlib_notify_redirect(command: str):
     sys.stderr.write("\n".join(msg) + "\n")
     sys.stderr.flush()
 
-def main() -> int:
+def build_parser():
     parser = argparse.ArgumentParser(
         prog="dworshak-env",
         description=f"Store and retrieve plaintext, single-key configuration values to a Pythonic .env file v{__version__})",
@@ -57,8 +57,10 @@ def main() -> int:
     typer_only = ["helptree"]
     for cmd in typer_only:
         subparsers.add_parser(cmd, help=f"[Requires Typer] Full version of {cmd}", add_help=False)
-
-    args = parser.parse_args()
+    return parser
+    
+def main() -> int:
+    args = build_parser().parser.parse_args()
 
     if not args.command:
         parser.print_help()
