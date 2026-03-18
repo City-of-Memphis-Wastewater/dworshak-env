@@ -17,7 +17,7 @@ def test_version():
     if result.exit_code != 0:
         print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
-
+"""
 @pytest.mark.typer
 def test_get():
     cmd = ["get","milk"]
@@ -25,7 +25,7 @@ def test_get():
     if result.exit_code != 0:
         print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
-
+"""
 @pytest.mark.typer
 def test_set():
     cmd = ["set","milk","0","--overwrite"]
@@ -50,3 +50,18 @@ def test_list():
         print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
+@pytest.mark.typer
+def test_lifecycle():
+    """Test the full lifecycle of a key to ensure state doesn't break individual tests."""
+    # 1. SET the value
+    set_result = runner.invoke(app, ["set", "milk", "white", "--overwrite"])
+    assert set_result.exit_code == 0
+
+    # 2. GET the value
+    get_result = runner.invoke(app, ["get", "milk"])
+    assert get_result.exit_code == 0
+    assert "white" in get_result.output
+
+    # 3. REMOVE the value
+    remove_result = runner.invoke(app, ["remove", "milk", "--yes"])
+    assert remove_result.exit_code == 0
