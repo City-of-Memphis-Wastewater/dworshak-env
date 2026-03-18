@@ -14,29 +14,39 @@ runner = CliRunner()
 def test_version():
     cmd = ["--version"]
     result = runner.invoke(app,cmd)
+    if result.exit_code != 0:
+        print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
 @pytest.mark.typer
 def test_get():
     cmd = ["get","milk"]
     result = runner.invoke(app,cmd)
+    if result.exit_code != 0:
+        print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
 @pytest.mark.typer
 def test_set():
-    cmd = ["set","milk","0"]
+    cmd = ["set","milk","0","--overwrite"]
     result = runner.invoke(app,cmd)
+    if result.exit_code != 0:
+        print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
 @pytest.mark.typer
 def test_remove():
-    cmd = ["remove","milk"]
+    cmd = ["remove","milk","--yes"]
     result = runner.invoke(app,cmd)
+    if result.exit_code != 0:
+        print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
 @pytest.mark.typer
 def test_list():
     cmd = ["list"]
     result = runner.invoke(app,cmd)
+    if result.exit_code != 0:
+        print(f"\nCLI Error Output: {result.output}")  # This will show up with -s
     assert result.exit_code == 0
 
