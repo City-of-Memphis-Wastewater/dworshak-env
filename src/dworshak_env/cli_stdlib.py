@@ -60,7 +60,8 @@ def build_parser():
     return parser
     
 def main() -> int:
-    args = build_parser().parser.parse_args()
+    parser = build_parser()
+    args = parser.parse_args()
 
     if not args.command:
         parser.print_help()
