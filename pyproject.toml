@@ -88,7 +88,8 @@ addopts = "-ra -q"
 testpaths = ["tests", "integration"]
 markers = [
     "typer: tests requiring typer, for the primary CLI",
-    "argparse: tests for the argparse-based fallback CLI"
+    "argparse: tests for the argparse-based fallback CLI",
+    "core: test for the core.py functions of the package."
 ]
 filterwarnings = [
     "ignore:The 'is_flag' and 'flag_value' parameters are not supported by Typer:DeprecationWarning",

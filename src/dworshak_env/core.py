@@ -2,9 +2,9 @@
 from __future__ import annotations
 import os
 import tempfile
-import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, List
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +12,8 @@ class DworshakEnv:
     def __init__(
         self, 
         path: str | Path | None = None, 
-        defaults: Optional[Dict[str, str]] = None
+        defaults: Optional[Dict[str, str]] = None,
+        debug: bool = False
     ):
         """
         Manages environment variables with fallback to a .env file.
@@ -21,8 +22,13 @@ class DworshakEnv:
             path: Path to the .env file. Defaults to '.env' in the current directory.
             defaults: Hardcoded fallbacks if key is missing from os.environ and file.
         """
+        if debug:
+            logger.setLevel(logging.DEBUG)
+
         self.path = Path(path) if path else Path(".env")
         self.defaults = defaults or {}
+        self.debug = debug
+        logger.debug(f"{self.path=}")
 
     def load(self) -> Dict[str, str]:
         """

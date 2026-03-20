@@ -47,6 +47,7 @@ def build_parser():
     get_p.add_argument("key", help="The environment variable key")
     get_p.add_argument("--path","-p", type=Path, help="Custom config file path")
     get_p.add_argument("-h", "--help", action="help", help="Show this help")
+    get_p.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
 
     # --- SET Command ---
     set_p = subparsers.add_parser("set", help="Store an .env value", add_help=False)
@@ -55,11 +56,13 @@ def build_parser():
     set_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
     set_p.add_argument("--overwrite", action="store_true", help="Force overwrite existing value")
     set_p.add_argument("-h", "--help", action="help", help="Show this help")
+    set_p.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
 
     # --- LIST Command ---
     list_p = subparsers.add_parser("list", help="Show the contents of the target .env file.", add_help=False)
     list_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
     list_p.add_argument("-h", "--help", action="help", help="Show this help")
+    list_p.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
 
     # --- LIST Command ---
     remove_p = subparsers.add_parser("remove", help="Remove a key and value from the target .env file.", add_help=False)
@@ -68,7 +71,8 @@ def build_parser():
     remove_p.add_argument("--fail",action="store_true", help="Raise error if config not found"),
     remove_p.add_argument("--yes","-y",action="store_true",help="Skip confirmation prompt (useful in scripts or automation"),
     remove_p.add_argument("-h", "--help", action="help", help="Show this help")
-    
+    remove_p.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
+
     # --- Typer-Only Commands ---
     for cmd in TYPER_ONLY:
         subparsers.add_parser(cmd, help=f"[Requires Typer] Full version of {cmd}", add_help=False)
@@ -78,7 +82,7 @@ def build_parser():
 def main(args=None) -> int:
     parser = build_parser()
     args = parser.parse_args(args)
-
+    
     if not args.command:
         parser.print_help()
         return 2
@@ -88,7 +92,7 @@ def main(args=None) -> int:
         return 1
 
     try:
-        env_mgr = DworshakEnv(path=args.path)
+        env_mgr = DworshakEnv(path=args.path,debug=args.debug)
 
         if args.command == "get":
             value = env_mgr.get(args.key)
