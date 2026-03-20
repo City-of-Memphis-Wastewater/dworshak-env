@@ -58,11 +58,18 @@ def build_parser():
     set_p.add_argument("-h", "--help", action="help", help="Show this help")
 
     # --- LIST Command ---
-    list_p = subparsers.add_parser("list", help="Show the contents of the taarget .env file.", add_help=False)
+    list_p = subparsers.add_parser("list", help="Show the contents of the target .env file.", add_help=False)
     list_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
     list_p.add_argument("-h", "--help", action="help", help="Show this help")
-    
 
+    # --- LIST Command ---
+    remove_p = subparsers.add_parser("remove", help="Remove a key and value from the target .env file.", add_help=False)
+    remove_p.add_argument("key", help="The environment variable key")
+    remove_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
+    remove_p.add_argument("--fail",action="store_true", help="Raise error if config not found"),
+    remove_p.add_argument("--yes","-y",action="store_true",help="Skip confirmation prompt (useful in scripts or automation"),
+    remove_p.add_argument("-h", "--help", action="help", help="Show this help")
+    
     # --- Typer-Only Commands ---
     for cmd in TYPER_ONLY:
         subparsers.add_parser(cmd, help=f"[Requires Typer] Full version of {cmd}", add_help=False)
@@ -113,6 +120,21 @@ def main(args=None) -> int:
         elif args.command == "list":
             data = env_mgr.load()
             pprint.pprint(data)
+        
+        elif args.command == "remove":
+            
+            if not args.yes:
+                stdlib_notify("Operation cancelled.")
+                stdlib_notify("To remove value, please input the '--yes' flag.")
+                return 0
+            
+            deleted = env_mgr.remove(args.key)
+            if deleted:
+                stdlib_notify(f"Removed value for key: {args.key}")
+            else:
+                if args.fail:
+                    raise KeyError(f"No value found for key: {args.key}")
+                stdlib_notify(f"No value found for key: {args.key}")
 
 
     except KeyboardInterrupt:

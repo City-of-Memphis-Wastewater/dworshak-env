@@ -133,7 +133,7 @@ def remove(
     debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
-    """Remove a setting from the .env value."""
+    """Remove a setting from the target .env file."""
 
     env_mgr = DworshakEnv(path=path)
 
