@@ -74,7 +74,7 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "rich", marker = "extra == 'typer'", specifier = ">=14.3.2" },
-    { name = "typer", marker = "extra == 'typer'", specifier = ">=0.21.1" },
+    { name = "typer", marker = "extra == 'typer'", specifier = ">=0.23.1" },
     { name = "typer-helptree", marker = "extra == 'typer'", specifier = ">=0.2.6" },
 ]
 provides-extras = ["typer"]

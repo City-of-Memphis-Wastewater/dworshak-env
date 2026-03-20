@@ -1,5 +1,5 @@
 __all__ = [
-    "DworshakEnv"
+    "DworshakEnv",
     "dworshak_env"
     ]
 

@@ -4,10 +4,13 @@ import sys
 import argparse
 import traceback
 from pathlib import Path
+import pprint
 from typing import Optional
 
 from .core import DworshakEnv
 from ._version import __version__
+
+TYPER_ONLY = ["helptree"]
 
 def stdlib_notify(msg: str):
     """Print to stderr so it doesn't break shell piping."""
@@ -17,7 +20,7 @@ def stdlib_notify(msg: str):
 def stdlib_notify_redirect(command: str):
     """Notification for Typer-only commands."""
     msg = [
-        f"dworshak-env [lite]:: The '{command}' command is only available in the full CLI.",
+        f"dworshak-env [lite]: The '{command}' command is only available in the full CLI.",
         "",
         "To enable the full interface, install the required extras:",
         "  pip install 'dworshak-env[typer]'",
@@ -37,7 +40,8 @@ def build_parser():
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
 
-    subparsers = parser.add_subparsers(dest="command", title="Commands")
+    #subparsers = parser.add_subparsers(dest="command", title="Commands")
+    subparsers = parser.add_subparsers(dest="command", title="Commands", required=True)
 
     # --- GET Command ---
     get_p = subparsers.add_parser("get", help="Retrieve a .env value", add_help=False)
@@ -53,21 +57,27 @@ def build_parser():
     set_p.add_argument("--overwrite", action="store_true", help="Force overwrite existing value")
     set_p.add_argument("-h", "--help", action="help", help="Show this help")
 
+    # --- LIST Command ---
+    list_p = subparsers.add_parser("list", help="Show the contents of the taarget .env file.", add_help=False)
+    list_p.add_argument("--path","-p", type=Path, help="Custom .env file path")
+    list_p.add_argument("-h", "--help", action="help", help="Show this help")
+    
+
     # --- Typer-Only Commands ---
-    typer_only = ["helptree"]
-    for cmd in typer_only:
+    for cmd in TYPER_ONLY:
         subparsers.add_parser(cmd, help=f"[Requires Typer] Full version of {cmd}", add_help=False)
+        
     return parser
     
-def main() -> int:
+def main(args=None) -> int:
     parser = build_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     if not args.command:
         parser.print_help()
-        return 0
+        return 2
 
-    if args.command in typer_only:
+    if args.command in TYPER_ONLY:
         stdlib_notify_redirect(args.command)
         return 1
 
@@ -99,6 +109,11 @@ def main() -> int:
                 stdlib_notify(f"Stored [{args.key}] successfully.")
                 print(final_value)
                 return 0
+            
+        elif args.command == "list":
+            data = env_mgr.load()
+            pprint.pprint(data)
+
 
     except KeyboardInterrupt:
         stdlib_notify("\nInterrupted.")
