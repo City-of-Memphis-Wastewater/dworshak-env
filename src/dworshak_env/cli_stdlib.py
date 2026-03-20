@@ -40,8 +40,7 @@ def build_parser():
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("--debug", action="store_true", help="Enable diagnostic stack traces")
 
-    #subparsers = parser.add_subparsers(dest="command", title="Commands")
-    subparsers = parser.add_subparsers(dest="command", title="Commands", required=True)
+    subparsers = parser.add_subparsers(dest="command", title="Commands")
 
     # --- GET Command ---
     get_p = subparsers.add_parser("get", help="Retrieve a .env value", add_help=False)
