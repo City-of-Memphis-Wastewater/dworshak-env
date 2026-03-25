@@ -6,6 +6,12 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.7] – 2026-03-25
+### Changed:
+- Fixed typo, PACKAGE_NAMW
+
+---
+
 ## [0.1.6] – 2026-03-6
 ### Changed:
 - Remove logging_setup.py in favor of `logger = logging.getLogger(__name__)` in core.py
