@@ -1,7 +1,7 @@
 # src/dworshak_prompt/_version.py
 from pathlib import Path
 
-PACKAGE_NAMW = "dworshak-env"
+PACKAGE_NAME = "dworshak-env"
 def get_version() -> str:
 
     # Try local VERSION file (Source/Dev)
