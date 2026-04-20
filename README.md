@@ -60,25 +60,6 @@ Use it wherever you want predictable, Pythonic environment variable access, with
 
 ---
 
-## Sister Projects in the Dworshak Ecosystem
-
-* **CLI/Orchestrator:** [dworshak](https://github.com/City-of-Memphis-Wastewater/dworshak)
-* **Interactive UI:** [dworshak-prompt](https://github.com/City-of-Memphis-Wastewater/dworshak-prompt)
-* **Secrets Storage:** [dworshak-secret](https://github.com/City-of-Memphis-Wastewater/dworshak-secret)
-* **Plaintext Pathed Configs:** [dworshak-config](https://github.com/City-of-Memphis-Wastewater/dworshak-config)
-* **Classic .env Injection:** [dworshak-env](https://github.com/City-of-Memphis-Wastewater/dworshak-env)
-
-```bash
-pipx install dworshak
-pip install dworshak-secret
-pip install dworshak-config
-pip install dworshak-env
-pip install dworshak-prompt
-
-```
-
----
-
 ## CLI
 
 The [dworshak](https://github.com/City-of-Memphis-Wastewater/dworshak) layer is the intended primary CLI entry point, but the `dworshak-env` CLI can be used directly.
@@ -102,5 +83,26 @@ dworshak-env helptree
 
 - GitHub: https://github.com/City-of-Memphis-Wastewater/typer-helptree
 - PyPI: https://pypi.org/project/typer-helptree/
+
+---
+
+<a id="sister-project-dworshak-secret"></a>
+
+## Sister Projects in the Dworshak Ecosystem
+
+* **CLI/Orchestrator:** [dworshak](https://github.com/City-of-Memphis-Wastewater/dworshak)
+* **Interactive UI:** [dworshak-prompt](https://github.com/City-of-Memphis-Wastewater/dworshak-prompt)
+* **Secrets Storage:** [dworshak-secret](https://github.com/City-of-Memphis-Wastewater/dworshak-secret)
+* **Plaintext Pathed Configs:** [dworshak-config](https://github.com/City-of-Memphis-Wastewater/dworshak-config)
+* **Classic .env Injection:** [dworshak-env](https://github.com/City-of-Memphis-Wastewater/dworshak-env)
+
+```python
+pipx install dworshak
+pip install dworshak-secret
+pip install dworshak-config
+pip install dworshak-env
+pip install dworshak-prompt
+
+```
 
 ---

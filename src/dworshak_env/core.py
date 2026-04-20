@@ -12,7 +12,7 @@ class DworshakEnv:
     def __init__(
         self, 
         path: str | Path | None = None, 
-        defaults: Optional[Dict[str, str]] = None,
+        defaults: Optional[Dict[str, str]] = None, # secondary fallback value is a value not in the .env file
         debug: bool = False
     ):
         """
