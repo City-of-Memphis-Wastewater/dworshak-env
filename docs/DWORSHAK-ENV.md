@@ -59,7 +59,7 @@ If a requested environment variable is missing and prompting is enabled, Dworsha
 from dworshak_env import DworshakEnv
 from dworshak_prompt import DworshakPrompt
 
-prompt = DworshakPrompt(default_priority=[PromptMode.CONSOLE])
+prompt = DworshakPrompt(default_priority=[PromptMode.CLI])
 
 env = DworshakEnv(prompt=prompt)
 database_url = env.get("DATABASE_URL")
