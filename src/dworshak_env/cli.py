@@ -61,8 +61,6 @@ def main(ctx: typer.Context,
 def get(
     key: str = typer.Argument(..., help="The value key (e.g., PORT, API_KEY)."),
     path: Path = typer.Option(None, "--path","-p", help="Custom .env file path."),
-    #debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
-    #verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """
     Get a .env configuration value (single-key).
