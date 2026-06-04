@@ -8,11 +8,7 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ## [0.1.8] – 2026-06-04
 ### Changed:
-- CLI flags provided with abbreviations
-
-### Internal:
-- There should be an enum handling the export filetypes, rather than boolean flags for each.
-
+- Logging improved to handle verbose and debug flags, and removed from redundant CLI commands.
 
 ---
 

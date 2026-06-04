@@ -20,7 +20,7 @@ def configure_root_logging_for_application(debug: bool,verbose: bool):
         level = logging.WARNING
 
     root_logger.setLevel(level)
-    handler = RichHandler(console=console, show_time=debug, show_path=debug,log_time_format="[%H:%M:%S]")
+    handler = RichHandler(console=console, show_time=False, show_path=debug,log_time_format="[%H:%M:%S]")
     handler.setFormatter(logging.Formatter("%(message)s"))
     root_logger.addHandler(handler)
     root_logger.debug(f"Debug logging enabled for {INTENT}.")
