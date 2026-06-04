@@ -22,12 +22,13 @@ class DworshakEnv:
             path: Path to the .env file. Defaults to '.env' in the current directory.
             defaults: Hardcoded fallbacks if key is missing from os.environ and file.
         """
-        if debug:
-            logger.setLevel(logging.DEBUG)
+        #if debug:
+        #    logger.setLevel(logging.DEBUG)
 
         self.path = Path(path) if path else Path(".env")
         self.defaults = defaults or {}
         self.debug = debug
+        logger.debug("DworshakEnv instantiated.")
         logger.debug(f"{self.path=}")
 
     def load(self) -> Dict[str, str]:
