@@ -44,11 +44,9 @@ add_typer_helptree(app=app, console=console, version = __version__,hidden=True)
 
 @app.callback(invoke_without_command=True)
 def main(ctx: typer.Context,
-    version: Optional[bool] = typer.Option(
-    None, "--version", is_flag=True, help="Show the version."
-    ),
-    debug: bool = typer.Option(
-        False, "--debug", "-d", is_flag=True, help="Enable debug logging to stderr.")
+    version: Optional[bool] = typer.Option(None, "--version", is_flag=True, help="Show the version."),
+    debug: bool = typer.Option(False, "--debug", "-d", is_flag=True, help="Enable diagnostic logging."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", is_flag=True, help="Enable detail logging.")
     ):
     """
     Enable --version
@@ -57,7 +55,7 @@ def main(ctx: typer.Context,
         typer.echo(__version__, err=False)
         raise typer.Exit(code=0)
 
-    configure_root_logging_for_application(debug)
+    configure_root_logging_for_application(debug,verbose)
 
 @app.command()
 def get(
