@@ -6,6 +6,16 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 
 ---
 
+## [0.1.8] – 2026-06-04
+### Changed:
+- CLI flags provided with abbreviations
+
+### Internal:
+- There should be an enum handling the export filetypes, rather than boolean flags for each.
+
+
+---
+
 ## [0.1.7] – 2026-03-25
 ### Changed:
 - Fixed typo, PACKAGE_NAMW
