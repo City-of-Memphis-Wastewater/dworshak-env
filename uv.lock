@@ -75,7 +75,7 @@ test = [
 requires-dist = [
     { name = "rich", marker = "extra == 'typer'", specifier = ">=14.3.2" },
     { name = "typer", marker = "extra == 'typer'", specifier = ">=0.23.1" },
-    { name = "typer-helptree", marker = "extra == 'typer'", path = "../typer-helptree/dist/typer_helptree-0.2.9-py3-none-any.whl" },
+    { name = "typer-helptree", marker = "extra == 'typer'", path = "../typer-helptree/dist/typer_helptree-0.2.10.2-py3-none-any.whl" },
 ]
 provides-extras = ["typer"]
 
@@ -330,15 +330,15 @@ wheels = [
 
 [[package]]
 name = "typer-helptree"
-version = "0.2.9"
-source = { path = "../typer-helptree/dist/typer_helptree-0.2.9-py3-none-any.whl" }
+version = "0.2.10.2"
+source = { path = "../typer-helptree/dist/typer_helptree-0.2.10.2-py3-none-any.whl" }
 dependencies = [
     { name = "pyhabitat" },
     { name = "rich" },
     { name = "typer" },
 ]
 wheels = [
-    { filename = "typer_helptree-0.2.9-py3-none-any.whl", hash = "sha256:ba70ea67b3e81dbea7c963b693c57fc335020c0a4764fa47c682557faf50c48a" },
+    { filename = "typer_helptree-0.2.10.2-py3-none-any.whl", hash = "sha256:46e85c78f0bbd0d3715a97906770a608e15c2fc4c75f3437387e0ec186612f7b" },
 ]
 
 [package.metadata]

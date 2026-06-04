@@ -76,7 +76,7 @@ dworshak-env helptree
 ```
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/City-of-Memphis-Wastewater/dworshak-env/main/assets/dworshak-env_v0.1.6_helptree.svg" width="100%" alt="Screenshot of the dworshak-env CLI helptree">
+  <img src="https://raw.githubusercontent.com/City-of-Memphis-Wastewater/dworshak-env/main/assets/dworshak-env_v0.1.8_helptree.svg" width="100%" alt="Screenshot of the dworshak-env CLI helptree">
 </p>
 
 `helptree` is utility funtion for Typer CLIs, imported from the `typer-helptree` library.

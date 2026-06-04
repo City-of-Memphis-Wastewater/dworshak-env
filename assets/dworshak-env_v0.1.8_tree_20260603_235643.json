@@ -1,0 +1,340 @@
+{
+    "name": "dworshak-env",
+    "help": "Store and retrieve plaintext, single-key configuration values to typical .env file. (v0.1.8)",
+    "kind": "app",
+    "is_group": true,
+    "parameters": [
+        {
+            "name": "version",
+            "opts": [
+                "--version"
+            ],
+            "secondary_opts": [],
+            "type": "BOOL",
+            "required": false,
+            "default": null,
+            "help": "Show the version.",
+            "hidden": false,
+            "is_flag": true,
+            "envvar": null
+        }
+    ],
+    "subcommands": [
+        {
+            "name": "get",
+            "help": "Get a .env configuration value (single-key).",
+            "kind": "command",
+            "is_group": false,
+            "parameters": [
+                {
+                    "name": "key",
+                    "opts": [
+                        "key"
+                    ],
+                    "secondary_opts": [],
+                    "type": "STRING",
+                    "required": true,
+                    "default": null,
+                    "help": "The value key (e.g., PORT, API_KEY).",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "path",
+                    "opts": [
+                        "--path",
+                        "-p"
+                    ],
+                    "secondary_opts": [],
+                    "type": "<typer.models.TyperPath object at 0x7c81999114c0>",
+                    "required": false,
+                    "default": null,
+                    "help": "Custom .env file path.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "debug",
+                    "opts": [
+                        "--debug",
+                        "-d"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Diagnostics.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "verbose",
+                    "opts": [
+                        "--verbose",
+                        "-v"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Details.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                }
+            ],
+            "subcommands": []
+        },
+        {
+            "name": "list",
+            "help": "List all stored settings.",
+            "kind": "command",
+            "is_group": false,
+            "parameters": [
+                {
+                    "name": "path",
+                    "opts": [
+                        "--path",
+                        "-p"
+                    ],
+                    "secondary_opts": [],
+                    "type": "<typer.models.TyperPath object at 0x7c81997a61b0>",
+                    "required": false,
+                    "default": null,
+                    "help": "Custom .env file path.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "debug",
+                    "opts": [
+                        "--debug",
+                        "-d"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Diagnostics.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "verbose",
+                    "opts": [
+                        "--verbose",
+                        "-v"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Details.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                }
+            ],
+            "subcommands": []
+        },
+        {
+            "name": "remove",
+            "help": "Remove a setting from the target .env file.",
+            "kind": "command",
+            "is_group": false,
+            "parameters": [
+                {
+                    "name": "key",
+                    "opts": [
+                        "key"
+                    ],
+                    "secondary_opts": [],
+                    "type": "STRING",
+                    "required": true,
+                    "default": null,
+                    "help": "Value key.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "path",
+                    "opts": [
+                        "--path",
+                        "-p"
+                    ],
+                    "secondary_opts": [],
+                    "type": "<typer.models.TyperPath object at 0x7c81997a5f40>",
+                    "required": false,
+                    "default": null,
+                    "help": "Custom .env file path.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "fail",
+                    "opts": [
+                        "--fail"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Raise error if config not found",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "yes",
+                    "opts": [
+                        "--yes",
+                        "-y"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Skip confirmation prompt (useful in scripts or automation)",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "debug",
+                    "opts": [
+                        "--debug",
+                        "-d"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Diagnostics.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "verbose",
+                    "opts": [
+                        "--verbose",
+                        "-v"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Details.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                }
+            ],
+            "subcommands": []
+        },
+        {
+            "name": "set",
+            "help": "Store or update a .env configuration value (single-key).",
+            "kind": "command",
+            "is_group": false,
+            "parameters": [
+                {
+                    "name": "key",
+                    "opts": [
+                        "key"
+                    ],
+                    "secondary_opts": [],
+                    "type": "STRING",
+                    "required": true,
+                    "default": null,
+                    "help": "The key (e.g. PORT, API_KEY).",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "value",
+                    "opts": [
+                        "value"
+                    ],
+                    "secondary_opts": [],
+                    "type": "STRING",
+                    "required": true,
+                    "default": null,
+                    "help": "The value to store.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "path",
+                    "opts": [
+                        "--path",
+                        "-p"
+                    ],
+                    "secondary_opts": [],
+                    "type": "<typer.models.TyperPath object at 0x7c81997a5bb0>",
+                    "required": false,
+                    "default": null,
+                    "help": "Custom config file path.",
+                    "hidden": false,
+                    "is_flag": false,
+                    "envvar": null
+                },
+                {
+                    "name": "overwrite",
+                    "opts": [
+                        "--overwrite"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Overwrite existing value.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "debug",
+                    "opts": [
+                        "--debug",
+                        "-d"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Diagnostics.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                },
+                {
+                    "name": "verbose",
+                    "opts": [
+                        "--verbose",
+                        "-v"
+                    ],
+                    "secondary_opts": [],
+                    "type": "BOOL",
+                    "required": false,
+                    "default": false,
+                    "help": "Details.",
+                    "hidden": false,
+                    "is_flag": true,
+                    "envvar": null
+                }
+            ],
+            "subcommands": []
+        }
+    ],
+    "version": "0.1.8"
+}
