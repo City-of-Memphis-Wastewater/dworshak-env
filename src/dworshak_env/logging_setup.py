@@ -1,4 +1,4 @@
-# src/dworshak_config/logging_setup.py
+# src/dworshak_env/logging_setup.py
 from __future__ import annotations
 import logging
 import sys
