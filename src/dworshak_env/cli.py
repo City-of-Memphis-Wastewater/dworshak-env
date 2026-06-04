@@ -83,8 +83,6 @@ def set(
     value: str = typer.Argument(...,help="The value to store."),
     path: Path = typer.Option(None, "--path","-p", help="Custom config file path."),
     overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing value."),
-    #debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
-    #verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """
     Store or update a .env configuration value (single-key).
@@ -131,8 +129,6 @@ def remove(
         is_flag=True,
         help="Skip confirmation prompt (useful in scripts or automation)"
     ),
-    #debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
-    #verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """Remove a setting from the target .env file."""
 
@@ -159,8 +155,6 @@ def remove(
 @app.command(name = "list")
 def list_entries(
     path: Optional[Path] = typer.Option(None, "--path", "-p", help="Custom .env file path."),
-    #debug: bool = typer.Option(False, "--debug", "-d", help="Diagnostics."),
-    #verbose: bool = typer.Option(False, "--verbose", "-v", help="Details.")
 ):
     """List all stored settings."""
     env_mgr = DworshakEnv(path=path)
