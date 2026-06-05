@@ -20,7 +20,7 @@ except:
     pass
 from .core import DworshakEnv
 from ._version import __version__
-from .logging_setup import configure_root_logging_for_application
+from .logging_setup import configure_logging_for_application
 
 console = Console(stderr=True)
 
@@ -55,7 +55,7 @@ def main(ctx: typer.Context,
         typer.echo(__version__, err=False)
         raise typer.Exit(code=0)
 
-    configure_root_logging_for_application(debug,verbose)
+    configure_logging_for_application(debug,verbose)
 
 @app.command()
 def get(
