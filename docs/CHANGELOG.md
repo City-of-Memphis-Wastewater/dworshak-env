@@ -9,6 +9,7 @@ The format is (read: strives to be) based on [Keep a Changelog](https://keepacha
 ## [0.1.8] – 2026-06-04
 ### Changed:
 - Logging improved to handle verbose and debug flags, and removed from redundant CLI commands.
+- configure_logging_for_application(), with INTENT=subapp
 
 ---
 
